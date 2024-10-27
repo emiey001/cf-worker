@@ -1,0 +1,12 @@
+# Development
+name = "crimson-boat-ae6e"
+main = "src/worker.js"
+compatibility_date = "2024-10-26"
+
+[vars]
+# UUID = '0727bd9a-15a3-4928-87ad-fae38f153499'
+
+# wrangler.toml (wrangler v3.79.0^)
+[observability]
+enabled = true
+head_sampling_rate = 1

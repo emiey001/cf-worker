@@ -1,0 +1,26 @@
+{
+  "name": "edgetunnel",
+  "version": "1.0.0",
+  "description": "A serverless VPN solution using VLESS and Cloudflare Workers. Provides secure, efficient tunneling for web traffic with easy setup and global reach.",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "wrangler publish",
+    "dev": "wrangler dev src/worker.js"
+  },
+  "keywords": [
+    "vless",
+    "v2ray",
+    "xray",
+    "serverless"
+  ],
+  "author": "Ahmad Sysdev",
+  "license": "ISC",
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241022.0",
+    "wrangler": "^3.83.0"
+  },
+  "dependencies": {
+    "pino": "^9.5.0",
+    "pino-pretty": "^11.3.0"
+  }
+}
