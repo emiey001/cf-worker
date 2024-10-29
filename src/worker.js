@@ -26,7 +26,7 @@ export default {
      */
     async fetch(request, env, context) {
         userID = env.UUID || userID;
-        proxy = env.proxy || '';
+        proxy = env.proxy || proxy;
         try {
             const upgradeHeader = request.headers.get('Upgrade');
             const url = new URL(request.url);
@@ -81,6 +81,7 @@ async function WSHandler(request, env, context) {
             });
 
             webSocket.addEventListener('error', (error) => {
+                // error(error.stack)
                 controller.error(error);
             });
 
@@ -93,6 +94,7 @@ async function WSHandler(request, env, context) {
                     controller.enqueue(buff.buffer);
                 }
                 catch (error) {
+                    // error(error.stack)
                     controller.error(error);
                 }
             }
@@ -160,7 +162,7 @@ async function WSHandler(request, env, context) {
 
             if (isDNS) {
                 UDPStreamWrite = await handleUDPOutBound(webSocket, vlessResponseHeader);
-                await UDPStreamWrite.write(rawClientData);
+                UDPStreamWrite.write(rawClientData);
                 UDPStreamWrite.releaseLock();
                 return;
             }
@@ -174,6 +176,7 @@ async function WSHandler(request, env, context) {
         }
     }))
     .catch((error) => {
+        // error(error.stack);
         // error(`ReadableWebSocketStream pipeTo error: ${error.stack}`);
     });
     return new Response(null, {
@@ -377,7 +380,7 @@ async function handleTCPOutBound(remoteSocketWrapper, address, port, rawClientDa
             port
         });
         remoteSocketWrapper.value = TCPSocket;
-        // info(`Connected to ${address}:${port}`);
+        // // info(`Connected to ${address}:${port}`);
         const writer = TCPSocket.writable.getWriter();
         await writer.write(rawClientData);
         writer.releaseLock();
@@ -387,7 +390,7 @@ async function handleTCPOutBound(remoteSocketWrapper, address, port, rawClientDa
     async function retry() {
         const TCPSocket = await connectAndWrite(proxy || address, port);
         TCPSocket.closed.catch((error) => {
-            // error(`Retry TCPSocket closed error ${error}`);
+            // error(`Retry TCPSocket closed error ${error.stack}`);
         })
         .finally(() => {
             if (webSocket.readyState === WS_READY_STATE_CLOSING || webSocket.readyState === WS_READY_STATE_OPEN) {

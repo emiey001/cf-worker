@@ -5,6 +5,7 @@ compatibility_date = "2024-10-26"
 
 [vars]
 # UUID = '0727bd9a-15a3-4928-87ad-fae38f153499'
+proxy = '192.18.134.22'
 
 # wrangler.toml (wrangler v3.79.0^)
 [observability]
